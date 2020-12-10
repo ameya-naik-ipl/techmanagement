@@ -10,6 +10,8 @@ public class TestNGTestExample {
 		System.out.println("This is my first test");
 		//Assert.fail("Test Case Failed");
 		Assert.assertEquals("1", "1");
+		
+		
 	}
 
 }
