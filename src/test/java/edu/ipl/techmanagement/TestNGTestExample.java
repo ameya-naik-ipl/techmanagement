@@ -9,9 +9,12 @@ public class TestNGTestExample {
 	public void test1() {
 		System.out.println("This is my first test");
 		//Assert.fail("Test Case Failed");
-		Assert.assertEquals("1", "1");
-		
-		
+		Assert.assertEquals("1", "1");		
 	}
-
+	@Test
+	public void testSubtract() {
+		System.out.println("This is Subtraction test");
+		//Assert.fail("Test Case Failed");
+		Assert.assertEquals(App.subtract(10,6),4);		
+	}
 }
