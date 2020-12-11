@@ -12,9 +12,11 @@ public class GoogleSearchIT {
 	@Test
 	public void testGoogleSearch() throws InterruptedException {
 		
+		//Download Chrome driver for your system and your chrome version
+		//https://chromedriver.chromium.org/downloads
+		
 		//For Windows
 		//System.setProperty("webdriver.chrome.driver", "C:\\ameya\\eclipse-workspace\\techmanagement\\chromedriver");
-		
 		
 		//Set the Browser driver path for MAC
 		System.setProperty("webdriver.chrome.driver", "/Users/ameya/eclipse-workspace/techmanagement/chromedriver");
@@ -27,7 +29,7 @@ public class GoogleSearchIT {
 		
 		//Enter string IPL
 		WebElement searchbar = driver.findElement(By.name("q"));
-		searchbar.sendKeys("IPL");
+		searchbar.sendKeys("institute of product leadership");
 		
 		//Pause for 100 milliseconds
 		Thread.sleep(100);
@@ -41,8 +43,8 @@ public class GoogleSearchIT {
 		WebElement firstlink = driver.findElement(By.className("yuRUbf"));
 		
 		String actual = firstlink.getText();
-		String expected = "IPLT20.com - Indian Premier League Official Website\n"
-				+ "www.iplt20.com";
+		
+		String expected = "Institute of Product Leadership | Product Management";
 				
 		Assert.assertEquals(actual, expected);
 		
