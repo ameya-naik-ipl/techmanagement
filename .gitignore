@@ -1,5 +1,8 @@
+Chromedriver
+*.classpath
 /target/
 *.properties
+target
 target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
 
 
@@ -27,6 +30,7 @@ old.gitignore
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-.classpath
+
 .settings/org.eclipse.jdt.core.prefs
+
 
