@@ -34,7 +34,7 @@
 		        
 		        <configuration>
 		          <includes>
-		            <include>**/*IT.java</include>
+		            <include>**/*EaseMyTripIT.java</include>
 		          </includes> 
 		          <excludes>
 		            <exclude>**/*Test.java</exclude>
