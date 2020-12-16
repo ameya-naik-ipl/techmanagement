@@ -1,10 +1,14 @@
 package edu.ipl.techmanagement;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test; //TestNG Library
 
@@ -16,7 +20,7 @@ public class EaseMyTripIT {
 		//Tell java and selenium where the chrome driver is kept
 		System.setProperty("webdriver.chrome.driver", "/Users/ameya/eclipse-workspace/techmanagement/chromedriver");
 				
-		//1. Open Browser
+		//1. Open Browser in a new profile (like incognito)
 		WebDriver browser = new ChromeDriver();
 		
 		//2. Navigate to Easemytrip.com
@@ -36,23 +40,44 @@ public class EaseMyTripIT {
 		
 		//5. Enter From Date 17 Dec
 		browser.findElement(By.id("ddate")).click();
-		Thread.sleep(200);
+		Thread.sleep(200); //200 milliseconds
 		browser.findElement(By.id("17/12/2020")).click();
 		
 		//6. Enter To Date 19 Dec
 		browser.findElement(By.id("rdate")).click();
-		Thread.sleep(200);
+		Thread.sleep(200); //Thread.sleep is a Java method not Selenium
+		
+		//Selenium provides implicit wait to Wait for element to be present or visible
+		browser.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		//Implicit wait is a dynamic wait - Only waits until the element is NOT present. 
+		//As soon as the element is present, selenium will proceed
+		//To achieve this Selenium polls the DOM every 500ms 
+		
 		browser.findElement(By.id("19/12/2020")).click();
+		
+		//Explicit Wait can wait for element to contain text 
+		//or no of elements to be some number
+		//WebDriverWait mywait = new WebDriverWait(driver, 30);
+		//mywait.until(ExpectedConditions.textToBePresentInElement(e1, "samsung"));
 		
 		//7. Search
 		//Absolute Xpath for search button: /html/body/form/div[14]/div[2]/div[3]/div[1]/div[7]/input
 		//Relative Xpath: //input[@value='Search']
 		browser.findElement(By.xpath("//input[@value='Search']")).click();
 		
-		Thread.sleep(5000);
+		//implicit wait only waits for element to be present
+		
+		//Thread.sleep(5000);
 		
 		//8. Verify that the total cost is < 15000 - Expected Result 
-		String actual = browser.findElement(By.xpath("//p[@class='stk_btm_price ']/span[2]")).getText();
+		WebElement price = browser.findElement(By.xpath("//p[@class='stk_btm_price ']/span[2]"));
+		
+		//Explicit Wait for comma to appear in the price field. 
+		//This will prove that the page has completed loading and we cna move ahead to next step
+		WebDriverWait mywait = new WebDriverWait(browser, 10);
+		mywait.until(ExpectedConditions.textToBePresentInElement(price, ","));
+		
+		String actual = price.getText();
 		String expected = "15,000";
 		
 		actual = actual.replace(",", "");
@@ -66,8 +91,11 @@ public class EaseMyTripIT {
 		
 		Assert.assertTrue(actualprice < expectedprice);
 		
-		browser.quit();
+		//Close the browser tab
+		browser.close();
 		
+		//Close the browser
+		browser.quit();
 		
 	}
 
