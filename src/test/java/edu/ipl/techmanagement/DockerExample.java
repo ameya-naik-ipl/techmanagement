@@ -1,4 +1,5 @@
-package src.test.java.edu.ipl.techmanagement;
+package edu.ipl.techmanagement;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -18,9 +19,9 @@ public class DockerExample {
 			DesiredCapabilities capabilities = new DesiredCapabilities();
 			
 			//This will give you how browsers are identified on your system 
-			System.out.println(DesiredCapabilities.internetExplorer().getBrowserName());
-			System.out.println(DesiredCapabilities.chrome().getBrowserName());
-			System.out.println(DesiredCapabilities.firefox().getBrowserName());
+//			System.out.println(DesiredCapabilities.internetExplorer().getBrowserName());
+//			System.out.println(DesiredCapabilities.chrome().getBrowserName());
+//			System.out.println(DesiredCapabilities.firefox().getBrowserName());
 			
 			//This is how you can set browser. The parameter is the output of above commands.
 			//capabilities.setBrowserName("chrome");
@@ -52,16 +53,19 @@ public class DockerExample {
 			*   command prompt and inside the directory where your selenium standalone jar is present.
 			*/
 			
-		    capabilities.setBrowserName("firefox");
+		    //capabilities.setBrowserName("chrome");
+			//capabilities.setBrowserName(BrowserType.CHROME);
+			//capabilities.setBrowserName(BrowserType.IEXPLORE);
+			capabilities.setBrowserName(BrowserType.FIREFOX);
 			
 	        WebDriver driver = new RemoteWebDriver(
-	        		new URL("http://172.17.0.2:4444/wd/hub"), 
+	        		new URL("http://c14735bc9c10.ngrok.io/wd/hub"), 
 	        		capabilities
 	        		);
 
 			//And now use it
 			
-	        driver.get("http://www.google.com");
+	        driver.get("http://www.flipkart.com");
 	        System.out.println(driver.getTitle());
 			// Query the driver to find out more information
 	        Capabilities actualCapabilities = ((RemoteWebDriver) driver).getCapabilities();
@@ -70,7 +74,7 @@ public class DockerExample {
 			System.out.println(actualCapabilities.isJavascriptEnabled());
 			System.out.println(actualCapabilities.getPlatform());		
 			
-			//driver.quit();
+			driver.quit();
 		}
 
 	}
@@ -86,4 +90,3 @@ public class DockerExample {
 			//capabilities.setPlatform(Platform.WINDOWS);
 			//capabilities.setPlatform(Platform.extractFromSysProperty("XP"));
 			//System.out.println(capabilities.getCapability(CapabilityType.PLATFORM));
-
