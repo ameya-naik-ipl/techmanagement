@@ -23,6 +23,12 @@ public class EaseMyTripIT {
 		//1. Open Browser in a new profile (like incognito)
 		WebDriver browser = new ChromeDriver();
 		
+		//Selenium provides implicit wait to Wait for element to be present or visible
+		browser.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+		//Implicit wait is a dynamic wait - Only waits until the element is NOT present. 
+		//As soon as the element is present, selenium will proceed
+		//To achieve this Selenium polls the DOM every 500ms 
+		
 		//2. Navigate to Easemytrip.com
 		browser.navigate().to("https://www.easemytrip.com/");
 		
@@ -47,12 +53,6 @@ public class EaseMyTripIT {
 		browser.findElement(By.id("rdate")).click();
 		Thread.sleep(200); //Thread.sleep is a Java method not Selenium
 		
-		//Selenium provides implicit wait to Wait for element to be present or visible
-		browser.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-		//Implicit wait is a dynamic wait - Only waits until the element is NOT present. 
-		//As soon as the element is present, selenium will proceed
-		//To achieve this Selenium polls the DOM every 500ms 
-		
 		browser.findElement(By.id("19/12/2020")).click();
 		
 		//Explicit Wait can wait for element to contain text 
@@ -76,6 +76,7 @@ public class EaseMyTripIT {
 		//This will prove that the page has completed loading and we cna move ahead to next step
 		WebDriverWait mywait = new WebDriverWait(browser, 10);
 		mywait.until(ExpectedConditions.textToBePresentInElement(price, ","));
+		//mywait.until(ExpectedConditions.textToBePresentInElement(anotherelement, ","));
 		
 		String actual = price.getText();
 		String expected = "15,000";
